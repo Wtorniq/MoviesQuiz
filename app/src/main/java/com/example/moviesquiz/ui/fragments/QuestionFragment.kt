@@ -15,12 +15,8 @@ class QuestionFragment : Fragment() {
         fun newInstance() = QuestionFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        // TODO: Use the ViewModel
     }
 
     override fun onCreateView(
