@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesquiz.databinding.FragmentQuestionsRoomRvItemBinding
-import com.example.moviesquiz.database.entities.Question
+import com.example.moviesquiz.database.entities.QuestionEntity
 
 class QuestionsRoomAdapter(private val questionsRoomInterface: QuestionsRoomInterface) : RecyclerView.Adapter<QuestionsRoomAdapter.QuestionsRoomViewHolder>(){
 
     private lateinit var binding: FragmentQuestionsRoomRvItemBinding
-    private val questionsList = ArrayList<Question>()
+    private val questionsList = ArrayList<QuestionEntity>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setQuestionsList(questions: ArrayList<Question>){
+    fun setQuestionsList(questions: ArrayList<QuestionEntity>){
         questionsList.clear()
         questionsList.addAll(questions)
         notifyDataSetChanged()
@@ -34,7 +34,7 @@ class QuestionsRoomAdapter(private val questionsRoomInterface: QuestionsRoomInte
     override fun getItemCount(): Int = questionsList.size
 
     inner class QuestionsRoomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(question: Question){
+        fun bind(question: QuestionEntity){
             binding.questionName.text = question.id.toString()
             itemView.setOnClickListener { questionsRoomInterface.onQuestionClicked() }
         }

@@ -1,28 +1,41 @@
 package com.example.moviesquiz.domain
 
 import com.example.moviesquiz.database.QuestionsDatabase
-import com.example.moviesquiz.database.entities.Question
+import com.example.moviesquiz.database.entities.QuestionEntity
 
 class QuizRepoImpl: QuizRepo {
-    private val questions = listOf<Question>()
+    private val questions = arrayListOf<QuestionEntity>()
     override fun createDataBase() {
         QuestionsDatabase.db.questionsDao().insertAll(questions)
     }
 
-    override fun getCertainQuestion(id: Int) {
-        TODO("Not yet implemented")
+    override fun getQuestionsList(level: Int, category: String): ArrayList<QuestionEntity> {
+        return QuestionsDatabase.db.questionsDao().getQuestion(level, category)
     }
 
-    override fun getPreviousQuestion(id: Int) {
-        TODO("Not yet implemented")
+    override fun setAnswered(id: Long) {
+        QuestionsDatabase.db.questionsDao().setQuestionAsAnswered(id, true)
     }
 
-    override fun getNextQuestion(id: Int) {
-        TODO("Not yet implemented")
-    }
+    private fun convertQuestionToEntity(question: Question) = QuestionEntity(
+        question.id,
+        question.level,
+        question.category,
+        question.answer,
+        question.wrongAnswers,
+        question.possibleLetters,
+        question.screenshot,
+        question.isAnswered
+    )
 
-    override fun setIsAnswered(id: Int) {
-        TODO("Not yet implemented")
-    }
-
+    private fun convertEntityToQuestion(questionEntity: QuestionEntity) = Question(
+        questionEntity.id,
+        questionEntity.level,
+        questionEntity.category,
+        questionEntity.answer,
+        questionEntity.wrongAnswers,
+        questionEntity.possibleLetters,
+        questionEntity.screenshot,
+        questionEntity.isAnswered
+    )
 }

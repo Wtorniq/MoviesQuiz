@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.moviesquiz.R
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentQuestionsRoomBinding
-import com.example.moviesquiz.database.entities.Question
+import com.example.moviesquiz.database.entities.QuestionEntity
 import com.example.moviesquiz.ui.adapters.QuestionsRoomAdapter
 import com.example.moviesquiz.ui.adapters.QuestionsRoomInterface
 
@@ -49,7 +48,7 @@ class QuestionsRoomFragment : Fragment() {
         viewModel.getQuestions("")
     }
 
-    private fun setQuestions(levels: ArrayList<Question>?) {
+    private fun setQuestions(levels: ArrayList<QuestionEntity>?) {
         levels?.let {
             adapter.setQuestionsList(levels)
         }

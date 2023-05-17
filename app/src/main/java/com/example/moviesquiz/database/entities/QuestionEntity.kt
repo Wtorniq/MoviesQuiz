@@ -4,12 +4,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Question(
-    @PrimaryKey val id: Int,
-    val text: String,
+data class QuestionEntity(
+    @PrimaryKey (autoGenerate = true) val id: Long,
+    val level: Int,
+    val category: String,
     val answer: String,
     val wrongAnswers: ArrayList<String>?,
     val possibleLetters: ArrayList<String>?,
     val screenshot: Int,
-    val isAnswered: Boolean
+    var isAnswered: Boolean
 )
