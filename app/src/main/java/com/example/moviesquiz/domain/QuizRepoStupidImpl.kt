@@ -1,19 +1,16 @@
 package com.example.moviesquiz.domain
 
 import com.example.moviesquiz.R
-import com.example.moviesquiz.database.entities.QuestionEntity
 
-class QuizRepoStupidImpl: QuizRepo {
-    private val database = ArrayList<QuestionEntity>()
+class QuizRepoStupidImpl : QuizRepo {
+    private val database = ArrayList<Question>()
     override fun createDataBase() {
-        Thread.sleep(3000)
         val mockQuestionsList = getMockQuestionsList()
         database.addAll(mockQuestionsList)
     }
 
-    override fun getQuestionsList(level: Int, category: String): ArrayList<QuestionEntity> {
-        Thread.sleep(3000)
-        val returnedList = arrayListOf<QuestionEntity>()
+    override fun getQuestionsList(level: Int, category: String): ArrayList<Question> {
+        val returnedList = arrayListOf<Question>()
         database.forEach { question ->
             if (question.level == level && question.category == category) {
                 returnedList.add(question)
@@ -23,16 +20,18 @@ class QuizRepoStupidImpl: QuizRepo {
     }
 
     override fun setAnswered(id: Long) {
-        Thread.sleep(3000)
         database.forEach { question ->
-            if (question.id == id) {question.isAnswered = true}
+            if (question.id == id) {
+                question.isAnswered = true
+            }
         }
     }
 
-    private fun getMockQuestionsList(): ArrayList<QuestionEntity>{
-        val mockListQuestions = arrayListOf<QuestionEntity>()
-        for (i in 0..19){
-            val a = QuestionEntity(
+    private fun getMockQuestionsList(): ArrayList<Question> {
+        val mockListQuestions = arrayListOf<Question>()
+
+        for (i in 0..19) {
+            val a = Question(
                 i + 1L,
                 1,
                 "мультфильмы",

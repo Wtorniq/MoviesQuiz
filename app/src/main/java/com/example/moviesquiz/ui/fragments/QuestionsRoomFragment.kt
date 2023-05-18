@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviesquiz.R
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentQuestionsRoomBinding
-import com.example.moviesquiz.database.entities.QuestionEntity
+import com.example.moviesquiz.domain.Question
 import com.example.moviesquiz.ui.adapters.QuestionsRoomAdapter
 import com.example.moviesquiz.ui.adapters.QuestionsRoomInterface
 
@@ -20,7 +20,8 @@ class QuestionsRoomFragment : Fragment() {
     private val viewModel by lazy { app.viewModel }
     private val adapter: QuestionsRoomAdapter by lazy {
         QuestionsRoomAdapter(object : QuestionsRoomInterface {
-            override fun onQuestionClicked() {
+            override fun onQuestionClicked(question: Question) {
+                viewModel.setCurrentQuestion(question)
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.container, QuestionFragment.newInstance())
                     .addToBackStack(null)
@@ -45,10 +46,10 @@ class QuestionsRoomFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         viewModel.getQuestionsLiveData().observe(viewLifecycleOwner) { setQuestions(it) }
-        viewModel.getQuestions("")
+        viewModel.getQuestions()
     }
 
-    private fun setQuestions(levels: ArrayList<QuestionEntity>?) {
+    private fun setQuestions(levels: ArrayList<Question>?) {
         levels?.let {
             adapter.setQuestionsList(levels)
         }

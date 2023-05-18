@@ -3,14 +3,21 @@ package com.example.moviesquiz.domain
 import com.example.moviesquiz.database.QuestionsDatabase
 import com.example.moviesquiz.database.entities.QuestionEntity
 
-class QuizRepoImpl: QuizRepo {
-    private val questions = arrayListOf<QuestionEntity>()
+class QuizRepoImpl : QuizRepo {
+
+    private val questions = arrayListOf<QuestionEntity>() //fixme
+
     override fun createDataBase() {
         QuestionsDatabase.db.questionsDao().insertAll(questions)
     }
 
-    override fun getQuestionsList(level: Int, category: String): ArrayList<QuestionEntity> {
-        return QuestionsDatabase.db.questionsDao().getQuestion(level, category)
+    override fun getQuestionsList(level: Int, category: String): ArrayList<Question> {
+        val entitiesList = QuestionsDatabase.db.questionsDao().getQuestion(level, category)
+        val questionsList = arrayListOf<Question>()
+        entitiesList.forEach {
+            questionsList.add(convertEntityToQuestion(it))
+        }
+        return questionsList
     }
 
     override fun setAnswered(id: Long) {

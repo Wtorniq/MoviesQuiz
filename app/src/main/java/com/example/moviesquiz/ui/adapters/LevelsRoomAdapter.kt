@@ -9,15 +9,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.moviesquiz.databinding.FragmentLevelsRoomRvItemBinding
 
 class LevelsRoomAdapter(private val levelsRoomInterface: LevelsRoomInterface): Adapter<LevelsRoomAdapter.LevelsRoomViewHolder>() {
-    private var levelsList = ArrayList<String>()
+    private var levelsList = arrayListOf(1, 2, 3)
     private lateinit var inListBinding: FragmentLevelsRoomRvItemBinding
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setLevelsList(levels: ArrayList<String>){
-        levelsList.clear()
-        levelsList.addAll(levels)
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsRoomViewHolder {
         inListBinding = FragmentLevelsRoomRvItemBinding.inflate(LayoutInflater.from(parent.context),
@@ -32,9 +25,9 @@ class LevelsRoomAdapter(private val levelsRoomInterface: LevelsRoomInterface): A
     override fun getItemCount(): Int = levelsList.size
 
     inner class LevelsRoomViewHolder(itemView: View): ViewHolder(itemView) {
-        fun bind(level: String) = with(inListBinding){
-            levelName.text = level
-            itemView.setOnClickListener { levelsRoomInterface.onLevelClicked(level.toInt()) }
+        fun bind(level: Int) = with(inListBinding){
+            levelName.text = level.toString()
+            itemView.setOnClickListener { levelsRoomInterface.onLevelClicked(level) }
         }
     }
 }

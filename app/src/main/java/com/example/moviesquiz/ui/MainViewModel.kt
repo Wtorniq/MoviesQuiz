@@ -5,36 +5,28 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesquiz.domain.QuizRepo
-import com.example.moviesquiz.database.entities.QuestionEntity
+import com.example.moviesquiz.domain.Question
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repo: QuizRepo) : ViewModel() {
-    private val levelsList = arrayListOf("easy", "normal", "hard")
-    private val categoriesList = arrayListOf("зарубежные фильмы", "российские фильмы", "сериалы", "мульфильмы", "актеры", "классика")
-
     private var chosenLevel = 0
     private var chosenCategory = ""
-    private var chosenQuestions = arrayListOf<QuestionEntity>()
+    private var chosenQuestions = arrayListOf<Question>()
+    private lateinit var currentQuestion : Question
 
-    private var levelsLiveData = MutableLiveData<ArrayList<String>>()
-    private var categoriesLiveData = MutableLiveData<ArrayList<String>>()
-    private var questionsLiveData = MutableLiveData<ArrayList<QuestionEntity>>()
-    fun getLevelsLiveData(): LiveData<ArrayList<String>?> = levelsLiveData
-    fun getCategoriesLiveData(): LiveData<ArrayList<String>?> = categoriesLiveData
-    fun getQuestionsLiveData(): LiveData<ArrayList<QuestionEntity>> = questionsLiveData
+    private var questionsLiveData = MutableLiveData<ArrayList<Question>>()
+    private var currentQuestionLiveData = MutableLiveData<Question>()
+    fun getQuestionsLiveData(): LiveData<ArrayList<Question>> = questionsLiveData
+    fun getCurrentQuestionLiveData(): LiveData<Question> = currentQuestionLiveData
 
-
-
-    fun getLevels() {
-        levelsLiveData.postValue(levelsList)
-    }
-    fun getCategories() {
-        categoriesLiveData.postValue(categoriesList)
-    }
-    fun getQuestions(){
+    fun getQuestions() {
         chosenQuestions = repo.getQuestionsList(chosenLevel, chosenCategory)
         questionsLiveData.postValue(chosenQuestions)
+    }
+
+    fun getCurrentQuestion() {
+        currentQuestionLiveData.postValue(currentQuestion)
     }
 
     fun setDataToDatabase() {
@@ -51,6 +43,10 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
 
     fun setChosenCategory(category: String){
         chosenCategory = category
+    }
+
+    fun setCurrentQuestion(question: Question) {
+        currentQuestion = question
     }
 
 /*    private fun getCategoriesFromFile(lvl: Int) {

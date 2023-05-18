@@ -19,7 +19,8 @@ class CategoriesFragment : Fragment() {
 
     private val viewModel by lazy { app.viewModel }
     private val adapter: CategoriesAdapter by lazy { CategoriesAdapter(object : CategoriesInterface{
-        override fun onCategoryClicked() {
+        override fun onCategoryClicked(category: String) {
+            viewModel.setChosenCategory(category)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, QuestionsRoomFragment.newInstance())
                 .addToBackStack(null)
@@ -42,15 +43,6 @@ class CategoriesFragment : Fragment() {
         }
         binding.recyclerView.layoutManager = lm
         binding.recyclerView.adapter = adapter
-
-        viewModel.getCategoriesLiveData().observe(viewLifecycleOwner) { setCategories(it) }
-        viewModel.getCategories()
-    }
-
-    private fun setCategories(categories: ArrayList<String>?) {
-        categories?.let {
-            adapter.setCategoriesList(categories)
-        }
     }
 
     override fun onDestroyView() {

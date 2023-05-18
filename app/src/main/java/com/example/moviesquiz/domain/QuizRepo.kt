@@ -1,9 +1,7 @@
 package com.example.moviesquiz.domain
 
-import com.example.moviesquiz.database.entities.QuestionEntity
-
 interface QuizRepo {
     fun createDataBase()
-    fun getQuestionsList(level: Int, category: String): ArrayList<QuestionEntity>
+    fun getQuestionsList(level: Int, category: String): ArrayList<Question>
     fun setAnswered(id: Long)
 }

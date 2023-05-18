@@ -8,9 +8,9 @@ interface QuestionsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(questionsList: List<QuestionEntity>)
 
-    @Query("SELECT * FROM Question WHERE id = :id")
-    fun getQuestion(level: Int, category: String) : ArrayList<QuestionEntity>
+    @Query("SELECT * FROM QuestionEntity WHERE level = :level AND category = :category")
+    fun getQuestion(level: Int, category: String) : List<QuestionEntity>
 
-    @Query("UPDATE Question SET isAnswered = :isAnswered WHERE id = :id")
+    @Query("UPDATE QuestionEntity SET isAnswered = :isAnswered WHERE id = :id")
     fun setQuestionAsAnswered(id: Long, isAnswered: Boolean)
 }

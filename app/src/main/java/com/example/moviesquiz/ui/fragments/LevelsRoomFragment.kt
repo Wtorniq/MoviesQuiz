@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.moviesquiz.R
@@ -48,13 +49,11 @@ class LevelsRoomFragment : Fragment() {
         PagerSnapHelper().attachToRecyclerView(binding.recyclerView)
         binding.recyclerView.adapter = adapter
 
-        viewModel.getLevelsLiveData().observe(viewLifecycleOwner) { setLevels(it) }
-        viewModel.getLevels()
-    }
-
-    private fun setLevels(levels: ArrayList<String>?) {
-        levels?.let {
-            adapter.setLevelsList(levels)
+        binding.deleteBtn.setOnClickListener {
+            activity?.getPreferences(AppCompatActivity.MODE_PRIVATE)
+                ?.edit()
+                ?.putBoolean("ARG_IS_DB_CREATED", false)
+                ?.apply()
         }
     }
 
