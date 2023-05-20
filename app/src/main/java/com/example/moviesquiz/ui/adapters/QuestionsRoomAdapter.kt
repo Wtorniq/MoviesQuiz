@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesquiz.databinding.FragmentQuestionsRoomRvItemBinding
-import com.example.moviesquiz.domain.Question
+import com.example.moviesquiz.domain.entities.Question
 
 class QuestionsRoomAdapter(private val questionsRoomInterface: QuestionsRoomInterface) : RecyclerView.Adapter<QuestionsRoomAdapter.QuestionsRoomViewHolder>(){
 

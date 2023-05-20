@@ -1,48 +1,37 @@
 package com.example.moviesquiz.domain
 
 import com.example.moviesquiz.R
+import com.example.moviesquiz.domain.entities.Answer
+import com.example.moviesquiz.domain.entities.Category
+import com.example.moviesquiz.domain.entities.Level
+import com.example.moviesquiz.domain.entities.Question
 
 class QuizRepoStupidImpl : QuizRepo {
-    private val database = ArrayList<Question>()
-    override fun createDataBase() {
-        val mockQuestionsList = getMockQuestionsList()
-        database.addAll(mockQuestionsList)
+    override fun initDataBase() {
+        TODO("Not yet implemented")
     }
 
-    override fun getQuestionsList(level: Int, category: String): ArrayList<Question> {
-        val returnedList = arrayListOf<Question>()
-        database.forEach { question ->
-            if (question.level == level && question.category == category) {
-                returnedList.add(question)
-            }
-        }
-        return returnedList
+    override fun getLevelsList(): ArrayList<Level> {
+        TODO("Not yet implemented")
     }
 
-    override fun setAnswered(id: Long) {
-        database.forEach { question ->
-            if (question.id == id) {
-                question.isAnswered = true
-            }
-        }
+    override fun getCategoriesList(levelId: String): ArrayList<Category> {
+        TODO("Not yet implemented")
     }
 
-    private fun getMockQuestionsList(): ArrayList<Question> {
-        val mockListQuestions = arrayListOf<Question>()
+    override fun getQuestionsList(categoryId: String): ArrayList<Question> {
+        TODO("Not yet implemented")
+    }
 
-        for (i in 0..19) {
-            val a = Question(
-                i + 1L,
-                1,
-                "мультфильмы",
-                "$i",
-                arrayListOf("no", "no", "no"),
-                null,
-                R.drawable._023_01_19,
-                false
-            )
-            mockListQuestions.add(a)
-        }
-        return mockListQuestions
+    override fun getAnswers(questionId: String): ArrayList<Answer> {
+        TODO("Not yet implemented")
+    }
+
+    override fun setAnswered(questionId: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteAll() {
+        TODO("Not yet implemented")
     }
 }

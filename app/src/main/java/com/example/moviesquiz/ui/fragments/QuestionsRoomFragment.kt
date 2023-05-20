@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviesquiz.R
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentQuestionsRoomBinding
-import com.example.moviesquiz.domain.Question
+import com.example.moviesquiz.domain.entities.Question
 import com.example.moviesquiz.ui.adapters.QuestionsRoomAdapter
 import com.example.moviesquiz.ui.adapters.QuestionsRoomInterface
 

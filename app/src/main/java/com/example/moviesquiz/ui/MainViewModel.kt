@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesquiz.domain.QuizRepo
-import com.example.moviesquiz.domain.Question
+import com.example.moviesquiz.domain.entities.Question
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -21,7 +21,7 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
     fun getCurrentQuestionLiveData(): LiveData<Question> = currentQuestionLiveData
 
     fun getQuestions() {
-        chosenQuestions = repo.getQuestionsList(chosenLevel, chosenCategory)
+//        chosenQuestions = repo.getQuestionsList(chosenLevel, chosenCategory)
         questionsLiveData.postValue(chosenQuestions)
     }
 
@@ -32,7 +32,7 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
     fun setDataToDatabase() {
         with(viewModelScope){
             launch(Dispatchers.IO) {
-                repo.createDataBase()
+                repo.initDataBase()
             }
         }
     }
