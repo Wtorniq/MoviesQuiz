@@ -7,15 +7,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.moviesquiz.databinding.FragmentLevelsRoomRvItemBinding
+import com.example.moviesquiz.domain.entities.Level
 
 class LevelsRoomAdapter(private val levelsRoomInterface: LevelsRoomInterface): Adapter<LevelsRoomAdapter.LevelsRoomViewHolder>() {
-    private var levelsList = arrayListOf(1, 2, 3)
-    private lateinit var inListBinding: FragmentLevelsRoomRvItemBinding
+    private val levelsList = arrayListOf<Level>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setLevelsList(levels: ArrayList<Level>){
+        levelsList.apply {
+            clear()
+            addAll(levels)
+        }
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsRoomViewHolder {
-        inListBinding = FragmentLevelsRoomRvItemBinding.inflate(LayoutInflater.from(parent.context),
-        parent, false)
-        return LevelsRoomViewHolder(inListBinding.root)
+        val inListBinding = FragmentLevelsRoomRvItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        return LevelsRoomViewHolder(inListBinding)
     }
 
     override fun onBindViewHolder(holder: LevelsRoomViewHolder, position: Int) {
@@ -24,14 +36,15 @@ class LevelsRoomAdapter(private val levelsRoomInterface: LevelsRoomInterface): A
 
     override fun getItemCount(): Int = levelsList.size
 
-    inner class LevelsRoomViewHolder(itemView: View): ViewHolder(itemView) {
-        fun bind(level: Int) = with(inListBinding){
-            levelName.text = level.toString()
+    inner class LevelsRoomViewHolder(private val inListBinding: FragmentLevelsRoomRvItemBinding): ViewHolder(inListBinding.root) {
+        fun bind(level: Level) = with(inListBinding){
+            levelName.text = level.id
+            counter.text = level.answersCounter.toString()
             itemView.setOnClickListener { levelsRoomInterface.onLevelClicked(level) }
         }
     }
 }
 
 interface LevelsRoomInterface{
-    fun onLevelClicked(lvl: Int)
+    fun onLevelClicked(lvl: Level)
 }

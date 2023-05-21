@@ -1,13 +1,10 @@
 package com.example.moviesquiz.ui
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.room.Database
 import com.example.moviesquiz.App
 import com.example.moviesquiz.databinding.ActivityMainBinding
 import com.example.moviesquiz.ui.fragments.LevelsRoomFragment
-import java.util.prefs.Preferences
 
 private const val ARG_IS_DB_CREATED = "ARG_IS_DB_CREATED"
 

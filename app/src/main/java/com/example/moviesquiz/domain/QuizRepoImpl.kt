@@ -54,8 +54,14 @@ class QuizRepoImpl : QuizRepo {
         return returnedList
     }
 
-    override fun setAnswered(questionId: String) {
-        TODO("Not yet implemented")
+    override fun setAnswered(
+        levelId: String,
+        levelCounter: Int,
+        categoryId: String,
+        categoryCounter: Int,
+        questionId: String
+    ) {
+        QuizDatabase.db.questionsDao().setRightAnswer(levelId, levelCounter, categoryId, categoryCounter, questionId, true)
     }
 
     override fun deleteAll() {

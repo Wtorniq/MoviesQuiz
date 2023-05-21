@@ -47,11 +47,11 @@ interface QuestionsDao {
 
     @Transaction
     fun setRightAnswer(
-        levelId: Int,
+        levelId: String,
         levelAnswersCounterValue: Int,
-        categoryId: Int,
+        categoryId: String,
         categoryAnswersCounterValue: Int,
-        questionId: Int,
+        questionId: String,
         isAnswered: Boolean
     ){
         setLevelAnswersCounter(levelId, levelAnswersCounterValue)
@@ -60,13 +60,13 @@ interface QuestionsDao {
     }
 
     @Query("UPDATE LevelEntity SET answersCounter = :levelAnswersCounterValue WHERE id = :levelId")
-    fun setLevelAnswersCounter(levelId: Int, levelAnswersCounterValue: Int)
+    fun setLevelAnswersCounter(levelId: String, levelAnswersCounterValue: Int)
 
     @Query("UPDATE CategoryEntity SET answersCounter = :categoryAnswersCounterValue WHERE id = :categoryId")
-    fun setCategoryAnswersCounter(categoryId: Int, categoryAnswersCounterValue: Int)
+    fun setCategoryAnswersCounter(categoryId: String, categoryAnswersCounterValue: Int)
 
     @Query("UPDATE QuestionEntity SET isAnswered = :isAnswered WHERE id = :questionId")
-    fun setQuestionAsAnswered(questionId: Int, isAnswered: Boolean)
+    fun setQuestionAsAnswered(questionId: String, isAnswered: Boolean)
 
     @Query("DELETE FROM LevelEntity")
     fun deleteAll()

@@ -16,4 +16,13 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
         />
 
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+        tools:text="40"
+        android:gravity="center"
+        android:layout_gravity="bottom|center_horizontal"/>
+
 </androidx.cardview.widget.CardView>

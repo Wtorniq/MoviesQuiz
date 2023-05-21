@@ -6,20 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.example.moviesquiz.databinding.ActivityMainBinding
 import com.example.moviesquiz.databinding.FragmentCategoriesRvItemBinding
+import com.example.moviesquiz.domain.entities.Category
 
 class CategoriesAdapter(private val categoriesInterface: CategoriesInterface) : Adapter<CategoriesAdapter.CategoriesViewHolder>(){
 
-    private lateinit var binding: FragmentCategoriesRvItemBinding
-    private val categoriesList = arrayListOf("зарубежные фильмы", "российские фильмы", "сериалы", "мультфильмы", "актеры", "классика")
+    private val categoriesList = arrayListOf<Category>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setCategoriesList(categories: ArrayList<Category>){
+        categoriesList.apply {
+            clear()
+            addAll(categories)
+        }
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
-        binding = FragmentCategoriesRvItemBinding.inflate(
+        val binding = FragmentCategoriesRvItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        return CategoriesViewHolder(binding.root)
+        return CategoriesViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
@@ -28,13 +36,14 @@ class CategoriesAdapter(private val categoriesInterface: CategoriesInterface) : 
 
     override fun getItemCount(): Int = categoriesList.size
 
-    inner class CategoriesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(category: String){
-            binding.categoryName.text = category
+    inner class CategoriesViewHolder(private val binding: FragmentCategoriesRvItemBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(category: Category){
+            binding.categoryName.text = category.name
+            binding.counter.text = category.answersCounter.toString()
             itemView.setOnClickListener { categoriesInterface.onCategoryClicked(category) }
         }
     }
 }
 interface CategoriesInterface{
-    fun onCategoryClicked(category: String)
+    fun onCategoryClicked(category: Category)
 }

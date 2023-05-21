@@ -11,6 +11,12 @@ interface QuizRepo {
     fun getCategoriesList(levelId: String): ArrayList<Category>
     fun getQuestionsList(categoryId: String): ArrayList<Question>
     fun getAnswers(questionId: String): ArrayList<Answer>
-    fun setAnswered(questionId: String)
+    fun setAnswered(
+        levelId: String,
+        levelCounter: Int,
+        categoryId: String,
+        categoryCounter: Int,
+        questionId: String
+    )
     fun deleteAll()
 }

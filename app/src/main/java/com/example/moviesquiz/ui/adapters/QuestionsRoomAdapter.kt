@@ -10,7 +10,6 @@ import com.example.moviesquiz.domain.entities.Question
 
 class QuestionsRoomAdapter(private val questionsRoomInterface: QuestionsRoomInterface) : RecyclerView.Adapter<QuestionsRoomAdapter.QuestionsRoomViewHolder>(){
 
-    private lateinit var binding: FragmentQuestionsRoomRvItemBinding
     private val questionsList = ArrayList<Question>()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -20,22 +19,23 @@ class QuestionsRoomAdapter(private val questionsRoomInterface: QuestionsRoomInte
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionsRoomViewHolder {
-        binding = FragmentQuestionsRoomRvItemBinding.inflate(
+        val binding = FragmentQuestionsRoomRvItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        return QuestionsRoomViewHolder(binding.root)
+        return QuestionsRoomViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: QuestionsRoomViewHolder, position: Int) {
-        holder.bind(questionsList[position])
+        holder.bind(questionsList[position], position)
     }
 
     override fun getItemCount(): Int = questionsList.size
 
-    inner class QuestionsRoomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(question: Question){
-            binding.questionName.text = question.id.toString()
+    inner class QuestionsRoomViewHolder(private val binding: FragmentQuestionsRoomRvItemBinding): RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
+        fun bind(question: Question, position: Int){
+            binding.questionName.text = "${position + 1}"
             itemView.setOnClickListener { questionsRoomInterface.onQuestionClicked(question) }
         }
     }
