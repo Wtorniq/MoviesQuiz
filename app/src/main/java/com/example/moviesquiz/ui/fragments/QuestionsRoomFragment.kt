@@ -27,6 +27,14 @@ class QuestionsRoomFragment : Fragment() {
                     .addToBackStack(null)
                     .commit()
             }
+
+            override fun setColor(question: Question, itemView: View) {
+                if (!question.isAnswered){
+                    itemView.setBackgroundColor(resources.getColor(R.color.green, requireContext().theme))
+                } else {
+                    itemView.setBackgroundColor(resources.getColor(R.color.gray, requireContext().theme))
+                }
+            }
         })
     }
 
@@ -49,9 +57,9 @@ class QuestionsRoomFragment : Fragment() {
         viewModel.getQuestions()
     }
 
-    private fun setQuestions(levels: ArrayList<Question>?) {
-        levels?.let {
-            adapter.setQuestionsList(levels)
+    private fun setQuestions(questions: ArrayList<Question>?) {
+        questions?.let {
+            adapter.setQuestionsList(questions)
         }
     }
 

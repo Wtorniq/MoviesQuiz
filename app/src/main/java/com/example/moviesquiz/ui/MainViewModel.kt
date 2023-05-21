@@ -11,7 +11,6 @@ import com.example.moviesquiz.domain.entities.Level
 import com.example.moviesquiz.domain.entities.Question
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainViewModel(private val repo: QuizRepo) : ViewModel() {
     private lateinit var chosenLevel : Level
@@ -71,6 +70,20 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
 
     fun setCurrentQuestion(question: Question) {
         currentQuestion = question
+    }
+
+    fun setAnswerAsRight() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val updateLevelCounter = chosenLevel.answersCounter + 1
+            val updateCategoryCounter = chosenCategory.answersCounter + 1
+            repo.setAnswered(
+                chosenLevel.id,
+                updateLevelCounter,
+                chosenCategory.id,
+                updateCategoryCounter,
+                currentQuestion.id
+            )
+        }
     }
 
     fun setNextQuestion() {

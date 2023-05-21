@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class Question(
     val id: String,
     val screenshot: Int,
-    val isAnswered: Boolean,
+    var isAnswered: Boolean,
 ): Parcelable

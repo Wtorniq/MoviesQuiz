@@ -36,10 +36,12 @@ class QuestionsRoomAdapter(private val questionsRoomInterface: QuestionsRoomInte
         @SuppressLint("SetTextI18n")
         fun bind(question: Question, position: Int){
             binding.questionName.text = "${position + 1}"
+            questionsRoomInterface.setColor(question, itemView)
             itemView.setOnClickListener { questionsRoomInterface.onQuestionClicked(question) }
         }
     }
 }
 interface QuestionsRoomInterface{
     fun onQuestionClicked(question: Question)
+    fun setColor(question: Question, itemView: View)
 }

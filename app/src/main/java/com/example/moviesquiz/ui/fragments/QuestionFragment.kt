@@ -5,13 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.moviesquiz.R
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentQuestionBinding
 import com.example.moviesquiz.domain.entities.Answer
-import com.example.moviesquiz.domain.entities.Question
 import com.example.moviesquiz.ui.QuestionState
 import com.google.android.material.button.MaterialButton
 
@@ -38,6 +36,9 @@ class QuestionFragment : Fragment() {
 
     private fun setQuestion(questionState: QuestionState?) = with(binding) {
         questionState?.let {
+            if (!answerBtn1.isEnabled){
+                setButtonsDisabled()
+            }
             answerBtn1.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
             answerBtn2.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
             answerBtn3.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
@@ -67,32 +68,51 @@ class QuestionFragment : Fragment() {
                 text = answers[0].text
                 setOnClickListener {
                     onAnswerClicked(answers[0], this)
+                    setButtonsDisabled()
                 }
             }
             answerBtn2.apply {
                 text = answers[1].text
                 setOnClickListener {
                     onAnswerClicked(answers[1], this)
+                    setButtonsDisabled()
                 }
             }
             answerBtn3.apply {
                 text = answers[2].text
                 setOnClickListener {
                     onAnswerClicked(answers[2], this)
+                    setButtonsDisabled()
                 }
             }
             answerBtn4.apply {
                 text = answers[3].text
                 setOnClickListener {
                     onAnswerClicked(answers[3], this)
+                    setButtonsDisabled()
                 }
             }
+        }
+    }
+
+    private fun setButtonsDisabled() = with(binding) {
+        if (answerBtn1.isEnabled){
+            answerBtn1.isEnabled = false
+            answerBtn2.isEnabled = false
+            answerBtn3.isEnabled = false
+            answerBtn4.isEnabled = false
+        } else {
+            answerBtn1.isEnabled = true
+            answerBtn2.isEnabled = true
+            answerBtn3.isEnabled = true
+            answerBtn4.isEnabled = true
         }
     }
 
     private fun onAnswerClicked(answer: Answer, btn: MaterialButton) = with(binding) {
         if (answer.isRight){
             btn.setBackgroundColor(resources.getColor(R.color.green, requireContext().theme))
+            viewModel.setAnswerAsRight()
 //            Toast.makeText(requireContext(), "Right!", Toast.LENGTH_SHORT).show()
         } else {
             btn.setBackgroundColor(resources.getColor(R.color.red, requireContext().theme))
