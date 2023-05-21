@@ -15,12 +15,12 @@ class QuizRepoStupidImpl : QuizRepo {
     )
 
     private val categories = arrayListOf(
-        Category("1.1", "зарубежные фильмы", 0, true),
-        Category("1.2", "российские фильмы", 0, true),
-        Category("1.3", "сериалы", 0, true),
-        Category("1.4", "мультфильмы", 0, false),
-        Category("1.5", "актеры", 0, false),
-        Category("1.6", "классика", 0, false)
+        Category("1.1", "зарубежные фильмы","", 0, true),
+        Category("1.2", "российские фильмы","", 0, true),
+        Category("1.3", "сериалы", "", 0, true),
+        Category("1.4", "мультфильмы","", 0, false),
+        Category("1.5", "актеры","", 0, false),
+        Category("1.6", "классика","", 0, false)
     )
 
     private val questions = arrayListOf(

@@ -77,6 +77,7 @@ class QuizRepoImpl : QuizRepo {
     private fun convertEntityToCategory(categoryEntity: CategoryEntity) = Category(
         categoryEntity.id,
         categoryEntity.name,
+        categoryEntity.description,
         categoryEntity.answersCounter,
         categoryEntity.isEnabled
     )
