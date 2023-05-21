@@ -11,6 +11,7 @@ import com.example.moviesquiz.domain.entities.Level
 import com.example.moviesquiz.domain.entities.Question
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel(private val repo: QuizRepo) : ViewModel() {
     private lateinit var chosenLevel : Level
@@ -21,18 +22,15 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
     private var levelsLiveData = MutableLiveData<ArrayList<Level>>()
     private var categoriesLiveData = MutableLiveData<ArrayList<Category>>()
     private var questionsLiveData = MutableLiveData<ArrayList<Question>>()
-    private var currentQuestionLiveData = MutableLiveData<Question>()
-    private var answersLiveData = MutableLiveData<ArrayList<Answer>>()
+    private var currentQuestionLiveData = MutableLiveData<QuestionState>()
     fun getLevelsLiveData(): LiveData<ArrayList<Level>> = levelsLiveData
     fun getCategoriesLiveData(): LiveData<ArrayList<Category>> = categoriesLiveData
     fun getQuestionsLiveData(): LiveData<ArrayList<Question>> = questionsLiveData
-    fun getCurrentQuestionLiveData(): LiveData<Question> = currentQuestionLiveData
-    fun getAnswersLiveData(): LiveData<ArrayList<Answer>> = answersLiveData
+    fun getCurrentQuestionLiveData(): LiveData<QuestionState> = currentQuestionLiveData
 
     fun getLevels() = getLevelsFromRepo()
     fun getCategories() = getCategoriesFromRepo()
     fun getQuestions() = getQuestionsFromRepo()
-    fun getAnswers() = getAnswersFromRepo()
 
     private fun getLevelsFromRepo() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -55,15 +53,12 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
         }
     }
 
-    private fun getAnswersFromRepo() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val answersList = repo.getAnswers(currentQuestion.id)
-            answersLiveData.postValue(answersList)
-        }
-    }
-
     fun getCurrentQuestion() {
-        currentQuestionLiveData.postValue(currentQuestion)
+        val answers = ArrayList<Answer>()
+        viewModelScope.launch(Dispatchers.IO) {
+            answers.addAll(repo.getAnswers(currentQuestion.id))
+            currentQuestionLiveData.postValue(QuestionState.Success(currentQuestion, answers))
+        }
     }
 
     fun setChosenLevel(lvl: Level){
@@ -76,6 +71,20 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
 
     fun setCurrentQuestion(question: Question) {
         currentQuestion = question
+    }
+
+    fun setNextQuestion() {
+        viewModelScope.launch(Dispatchers.IO) {
+            Thread.sleep(2000)
+            try {
+                val currentQuestionIndex = chosenQuestions.indexOf(currentQuestion)
+                val nextQuestion = chosenQuestions[currentQuestionIndex + 1]
+                currentQuestion = nextQuestion
+                getCurrentQuestion()
+            } catch (e: Throwable) {
+                currentQuestionLiveData.postValue(QuestionState.Error(e))
+            }
+        }
     }
 
     fun deleteData(){
@@ -91,8 +100,4 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
             }
         }
     }
-
-/*    private fun getCategoriesFromFile(lvl: Int) {
-        categoriesLiveData.postValue(api.readCat(lvl))
-    }*/
 }

@@ -12,6 +12,7 @@ import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentQuestionBinding
 import com.example.moviesquiz.domain.entities.Answer
 import com.example.moviesquiz.domain.entities.Question
+import com.example.moviesquiz.ui.QuestionState
 import com.google.android.material.button.MaterialButton
 
 class QuestionFragment : Fragment() {
@@ -33,8 +34,31 @@ class QuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getCurrentQuestionLiveData().observe(viewLifecycleOwner) { setQuestion(it) }
         viewModel.getCurrentQuestion()
-        viewModel.getAnswersLiveData().observe(viewLifecycleOwner) {setAnswers(it)}
-        viewModel.getAnswers()
+    }
+
+    private fun setQuestion(questionState: QuestionState?) = with(binding) {
+        questionState?.let {
+            answerBtn1.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
+            answerBtn2.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
+            answerBtn3.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
+            answerBtn4.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
+            when(questionState){
+                is QuestionState.Error -> {
+                    parentFragmentManager.popBackStack()
+                }
+                QuestionState.Loading -> {
+                    answerBtn1.text = "..."
+                    answerBtn2.text = "..."
+                    answerBtn3.text = "..."
+                    answerBtn4.text = "..."
+                }
+                is QuestionState.Success -> {
+                    tempQId.text = questionState.question.id
+                    screenshotContainer.setImageDrawable(AppCompatResources.getDrawable(requireContext(), questionState.question.screenshot))
+                    setAnswers(questionState.answers)
+                }
+            }
+        }
     }
 
     private fun setAnswers(answers: ArrayList<Answer>?) = with(binding) {
@@ -52,6 +76,7 @@ class QuestionFragment : Fragment() {
                 }
             }
             answerBtn3.apply {
+                text = answers[2].text
                 setOnClickListener {
                     onAnswerClicked(answers[2], this)
                 }
@@ -68,17 +93,12 @@ class QuestionFragment : Fragment() {
     private fun onAnswerClicked(answer: Answer, btn: MaterialButton) = with(binding) {
         if (answer.isRight){
             btn.setBackgroundColor(resources.getColor(R.color.green, requireContext().theme))
-            Toast.makeText(requireContext(), "Right!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "Right!", Toast.LENGTH_SHORT).show()
         } else {
             btn.setBackgroundColor(resources.getColor(R.color.red, requireContext().theme))
-            Toast.makeText(requireContext(), "Wrong!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "Wrong!", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun setQuestion(question: Question?) = with(binding) {
-        question?.let {
-            screenshotContainer.setImageDrawable(AppCompatResources.getDrawable(requireContext(), question.screenshot))
-        }
+        viewModel.setNextQuestion()
     }
 
     override fun onDestroyView() {
