@@ -51,12 +51,11 @@ interface QuestionsDao {
         levelAnswersCounterValue: Int,
         categoryId: String,
         categoryAnswersCounterValue: Int,
-        questionId: String,
-        isAnswered: Boolean
+        questionId: String
     ){
         setLevelAnswersCounter(levelId, levelAnswersCounterValue)
         setCategoryAnswersCounter(categoryId, categoryAnswersCounterValue)
-        setQuestionAsAnswered(questionId, isAnswered)
+        setQuestionAsAnswered(questionId)
     }
 
     @Query("UPDATE LevelEntity SET answersCounter = :levelAnswersCounterValue WHERE id = :levelId")
@@ -65,8 +64,14 @@ interface QuestionsDao {
     @Query("UPDATE CategoryEntity SET answersCounter = :categoryAnswersCounterValue WHERE id = :categoryId")
     fun setCategoryAnswersCounter(categoryId: String, categoryAnswersCounterValue: Int)
 
-    @Query("UPDATE QuestionEntity SET isAnswered = :isAnswered WHERE id = :questionId")
-    fun setQuestionAsAnswered(questionId: String, isAnswered: Boolean)
+    @Query("UPDATE QuestionEntity SET isAnswered = true WHERE id = :questionId")
+    fun setQuestionAsAnswered(questionId: String)
+
+    @Query("UPDATE CategoryEntity SET isEnabled = true WHERE id = :categoryId")
+    fun setCategoryAsEnabled(categoryId: String)
+
+    @Query("UPDATE LevelEntity SET isEnabled = true WHERE id = :levelId")
+    fun setLevelAsEnabled(levelId: String)
 
     @Query("DELETE FROM LevelEntity")
     fun deleteAll()

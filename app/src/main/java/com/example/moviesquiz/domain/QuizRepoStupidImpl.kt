@@ -16,8 +16,8 @@ class QuizRepoStupidImpl : QuizRepo {
 
     private val categories = arrayListOf(
         Category("1.1", "зарубежные фильмы","", 0, true),
-        Category("1.2", "российские фильмы","", 0, true),
-        Category("1.3", "сериалы", "", 0, true),
+        Category("1.2", "российские фильмы","", 0, false),
+        Category("1.3", "сериалы", "", 0, false),
         Category("1.4", "мультфильмы","", 0, false),
         Category("1.5", "актеры","", 0, false),
         Category("1.6", "классика","", 0, false)
@@ -64,7 +64,7 @@ class QuizRepoStupidImpl : QuizRepo {
 
     override fun getAnswers(questionId: String): ArrayList<Answer> = answers
 
-    override fun setAnswered(
+    override fun setAnsweredQuestion(
         levelId: String,
         levelCounter: Int,
         categoryId: String,
@@ -84,6 +84,22 @@ class QuizRepoStupidImpl : QuizRepo {
         questions.forEach {
             if (it.id == questionId){
                 it.isAnswered = true
+            }
+        }
+    }
+
+    override fun setEnabledLevel(levelId: String) {
+        levels.forEach {
+            if (it.id == levelId){
+                it.isEnabled = true
+            }
+        }
+    }
+
+    override fun setEnabledCategory(categoryId: String) {
+        categories.forEach {
+            if (it.id == categoryId){
+                it.isEnabled = true
             }
         }
     }

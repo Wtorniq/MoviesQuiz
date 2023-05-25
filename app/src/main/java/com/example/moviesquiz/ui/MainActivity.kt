@@ -2,6 +2,7 @@ package com.example.moviesquiz.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.example.moviesquiz.App
 import com.example.moviesquiz.databinding.ActivityMainBinding
 import com.example.moviesquiz.ui.fragments.LevelsRoomFragment
@@ -10,7 +11,7 @@ private const val ARG_IS_DB_CREATED = "ARG_IS_DB_CREATED"
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private var isDbCreated = false
     private val viewModel by lazy { (application as App).viewModel }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,14 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(binding.container.id, LevelsRoomFragment.newInstance())
                 .commitNow()
+        }
+
+        viewModel.getNotificationDialogLiveData().observe(this) { message ->
+            AlertDialog.Builder(this).apply {
+                setMessage(message)
+                create()
+                show()
+            }
         }
     }
 }

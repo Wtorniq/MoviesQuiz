@@ -39,8 +39,13 @@ class LevelsRoomAdapter(private val levelsRoomInterface: LevelsRoomInterface): A
     inner class LevelsRoomViewHolder(private val inListBinding: FragmentLevelsRoomRvItemBinding): ViewHolder(inListBinding.root) {
         fun bind(level: Level) = with(inListBinding){
             levelName.text = level.id
-            counter.text = level.answersCounter.toString()
-            itemView.setOnClickListener { levelsRoomInterface.onLevelClicked(level) }
+            if (level.isEnabled){
+                blocker.visibility = View.GONE
+                counter.text = level.answersCounter.toString()
+                itemView.setOnClickListener { levelsRoomInterface.onLevelClicked(level) }
+            } else {
+                blocker.visibility = View.VISIBLE
+            }
         }
     }
 }

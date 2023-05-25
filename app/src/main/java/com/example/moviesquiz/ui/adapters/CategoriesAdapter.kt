@@ -37,10 +37,15 @@ class CategoriesAdapter(private val categoriesInterface: CategoriesInterface) : 
     override fun getItemCount(): Int = categoriesList.size
 
     inner class CategoriesViewHolder(private val binding: FragmentCategoriesRvItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(category: Category){
-            binding.categoryName.text = category.name
-            binding.counter.text = category.answersCounter.toString()
-            itemView.setOnClickListener { categoriesInterface.onCategoryClicked(category) }
+        fun bind(category: Category) = with(binding){
+            categoryName.text = category.name
+            if (category.isEnabled){
+                blocker.visibility = View.GONE
+                counter.text = category.answersCounter.toString()
+                itemView.setOnClickListener { categoriesInterface.onCategoryClicked(category) }
+            } else {
+                blocker.visibility = View.VISIBLE
+            }
         }
     }
 }

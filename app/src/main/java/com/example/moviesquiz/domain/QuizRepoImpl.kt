@@ -6,7 +6,6 @@ import com.example.moviesquiz.domain.entities.Answer
 import com.example.moviesquiz.domain.entities.Category
 import com.example.moviesquiz.domain.entities.Level
 import com.example.moviesquiz.domain.entities.Question
-
 class QuizRepoImpl : QuizRepo {
 
     override fun initDataBase() {
@@ -54,14 +53,22 @@ class QuizRepoImpl : QuizRepo {
         return returnedList
     }
 
-    override fun setAnswered(
+    override fun setAnsweredQuestion(
         levelId: String,
         levelCounter: Int,
         categoryId: String,
         categoryCounter: Int,
         questionId: String
     ) {
-        QuizDatabase.db.questionsDao().setRightAnswer(levelId, levelCounter, categoryId, categoryCounter, questionId, true)
+        QuizDatabase.db.questionsDao().setRightAnswer(levelId, levelCounter, categoryId, categoryCounter, questionId)
+    }
+
+    override fun setEnabledLevel(levelId: String) {
+        QuizDatabase.db.questionsDao().setLevelAsEnabled(levelId)
+    }
+
+    override fun setEnabledCategory(categoryId: String) {
+        QuizDatabase.db.questionsDao().setCategoryAsEnabled(categoryId)
     }
 
     override fun deleteAll() {

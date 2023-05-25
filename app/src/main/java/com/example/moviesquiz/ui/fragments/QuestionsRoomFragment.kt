@@ -10,6 +10,7 @@ import com.example.moviesquiz.R
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentQuestionsRoomBinding
 import com.example.moviesquiz.domain.entities.Question
+import com.example.moviesquiz.ui.MainActivity
 import com.example.moviesquiz.ui.adapters.QuestionsRoomAdapter
 import com.example.moviesquiz.ui.adapters.QuestionsRoomInterface
 
@@ -23,7 +24,7 @@ class QuestionsRoomFragment : Fragment() {
             override fun onQuestionClicked(question: Question) {
                 viewModel.setCurrentQuestion(question)
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, QuestionFragment.newInstance())
+                    .replace((requireActivity() as MainActivity).binding.container.id, QuestionFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
             }

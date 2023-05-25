@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:layout_margin="16dp"
     style="@style/mainCardViewStyle">
 
@@ -22,5 +22,11 @@
         android:layout_gravity="end"
         android:layout_margin="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+
+    <TextView
+        android:id="@+id/blocker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4D000000" />
 
 </androidx.cardview.widget.CardView>

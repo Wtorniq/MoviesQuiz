@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moviesquiz.R
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentCategoriesBinding
 import com.example.moviesquiz.domain.entities.Category
+import com.example.moviesquiz.ui.MainActivity
 import com.example.moviesquiz.ui.adapters.CategoriesAdapter
 import com.example.moviesquiz.ui.adapters.CategoriesInterface
 
@@ -23,7 +23,7 @@ class CategoriesFragment : Fragment() {
         override fun onCategoryClicked(category: Category) {
             viewModel.setChosenCategory(category)
             parentFragmentManager.beginTransaction()
-                .replace(R.id.container, QuestionsRoomFragment.newInstance())
+                .replace((requireActivity() as MainActivity).binding.container.id, QuestionsRoomFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
         }
@@ -44,7 +44,7 @@ class CategoriesFragment : Fragment() {
         }
         binding.recyclerView.layoutManager = lm
         binding.recyclerView.adapter = adapter
-        viewModel.getCategoriesLiveData().observe(viewLifecycleOwner){setCategories(it)}
+        viewModel.getCategoriesLiveData().observe(viewLifecycleOwner) { setCategories(it) }
         viewModel.getCategories()
     }
 

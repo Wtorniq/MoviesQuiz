@@ -25,4 +25,10 @@
         android:gravity="center"
         android:layout_gravity="bottom|center_horizontal"/>
 
+    <TextView
+        android:id="@+id/blocker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4D000000" />
+
 </androidx.cardview.widget.CardView>

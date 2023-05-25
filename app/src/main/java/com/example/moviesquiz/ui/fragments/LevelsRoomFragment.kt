@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.example.moviesquiz.R
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentLevelsRoomBinding
 import com.example.moviesquiz.domain.entities.Level
+import com.example.moviesquiz.ui.MainActivity
 import com.example.moviesquiz.ui.adapters.LevelsRoomAdapter
 import com.example.moviesquiz.ui.adapters.LevelsRoomInterface
 
@@ -25,7 +25,7 @@ class LevelsRoomFragment : Fragment() {
             override fun onLevelClicked(lvl: Level) {
                 viewModel.setChosenLevel(lvl)
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, CategoriesFragment.newInstance())
+                    .replace((requireActivity() as MainActivity).binding.container.id, CategoriesFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
             }
@@ -49,7 +49,7 @@ class LevelsRoomFragment : Fragment() {
         PagerSnapHelper().attachToRecyclerView(binding.recyclerView)
         binding.recyclerView.adapter = adapter
 
-        viewModel.getLevelsLiveData().observe(viewLifecycleOwner){setLevels(it)}
+        viewModel.getLevelsLiveData().observe(viewLifecycleOwner) { setLevels(it) }
         viewModel.getLevels()
 
         binding.deleteBtn.visibility = View.GONE
