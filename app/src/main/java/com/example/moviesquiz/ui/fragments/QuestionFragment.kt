@@ -36,27 +36,72 @@ class QuestionFragment : Fragment() {
 
     private fun setQuestion(questionState: QuestionState?) = with(binding) {
         questionState?.let {
-            if (!answerBtn1.isEnabled){
-                setButtonsDisabled()
-            }
-            answerBtn1.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
-            answerBtn2.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
-            answerBtn3.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
-            answerBtn4.setBackgroundColor(resources.getColor(R.color.purple_500, requireContext().theme))
             when(questionState){
                 is QuestionState.Error -> {
                     parentFragmentManager.popBackStack()
                 }
-                QuestionState.Loading -> {
-                    answerBtn1.text = "..."
-                    answerBtn2.text = "..."
-                    answerBtn3.text = "..."
-                    answerBtn4.text = "..."
+                is QuestionState.Loading -> {
+                    fourAnswersContainer.visibility = View.GONE
+                    textFieldContainer.visibility = View.GONE
                 }
-                is QuestionState.Success -> {
+                is QuestionState.SuccessEasyLevel -> {
+                    fourAnswersContainer.visibility = View.VISIBLE
+                    textFieldContainer.visibility = View.GONE
+                    if (!answerBtn1.isEnabled) {
+                        setButtonsDisabled()
+                    }
+                    answerBtn1.setBackgroundColor(
+                        resources.getColor(
+                            R.color.purple_500,
+                            requireContext().theme
+                        )
+                    )
+                    answerBtn2.setBackgroundColor(
+                        resources.getColor(
+                            R.color.purple_500,
+                            requireContext().theme
+                        )
+                    )
+                    answerBtn3.setBackgroundColor(
+                        resources.getColor(
+                            R.color.purple_500,
+                            requireContext().theme
+                        )
+                    )
+                    answerBtn4.setBackgroundColor(
+                        resources.getColor(
+                            R.color.purple_500,
+                            requireContext().theme
+                        )
+                    )
                     tempQId.text = questionState.question.id
-                    screenshotContainer.setImageDrawable(AppCompatResources.getDrawable(requireContext(), questionState.question.screenshot))
+                    screenshotContainer.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            questionState.question.screenshot
+                        )
+                    )
                     setAnswers(questionState.answers)
+                }
+                is QuestionState.SuccessNormalLevel -> {
+                    fourAnswersContainer.visibility = View.GONE
+                    textFieldContainer.visibility = View.VISIBLE
+                    tempQId.text = questionState.question.id
+                    screenshotContainer.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            questionState.question.screenshot
+                        )
+                    )
+                }
+                is QuestionState.SuccessHardLevel -> {
+                    tempQId.text = questionState.question.id
+                    screenshotContainer.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            questionState.question.screenshot
+                        )
+                    )
                 }
             }
         }
@@ -113,10 +158,8 @@ class QuestionFragment : Fragment() {
         if (answer.isRight){
             btn.setBackgroundColor(resources.getColor(R.color.green, requireContext().theme))
             viewModel.setAnswerAsRight()
-//            Toast.makeText(requireContext(), "Right!", Toast.LENGTH_SHORT).show()
         } else {
             btn.setBackgroundColor(resources.getColor(R.color.red, requireContext().theme))
-//            Toast.makeText(requireContext(), "Wrong!", Toast.LENGTH_SHORT).show()
         }
         viewModel.setNextQuestion()
     }

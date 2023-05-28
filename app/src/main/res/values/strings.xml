@@ -12,5 +12,18 @@
     For more information, see https://support.google.com/admob/answer/3052638
 <!- -->
     <string name="interstitial_ad_unit_id">YOUR_INTERSTITIAL_AD_UNIT_ID</string>
-    <string name="screenshotContentDesc">Угадайте фильм по кадру</string>
+
+    <string name="categoryDescGuessMovieFromScreenshot">Угадайте фильм по кадру</string>
+    <string name="categoryDescGuessShowFromScreenshot">Угадайте сериал по кадру</string>
+    <string name="categoryDescGuessCartoonFromScreenshot">Угадайте мультфильм по кадру</string>
+    <string name="categoryDescGuessActorFromScreenshot">Кто изображен на кадре?</string>
+    <string name="categoryDescGuessMovieFromActors">Угадайте фильм по атерскому составу</string>
+
+    <string name="categoryNameForeignMovies">Зарубежные фильмы</string>
+    <string name="categoryNameRussianMovies">Российские фильмы</string>
+    <string name="categoryNameShows">Сериалы</string>
+    <string name="categoryNameCartoons">Мультфильмы</string>
+    <string name="categoryNameActors">Актеры</string>
+    <string name="categoryNameClassic">Классика</string>
+
 </resources>

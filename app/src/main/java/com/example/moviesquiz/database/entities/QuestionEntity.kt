@@ -19,8 +19,8 @@ data class QuestionEntity(
 )
 
 fun getInitialQuestions() = listOf(
-    QuestionEntity("1.1.1", 0, false, "1.1"),
-    QuestionEntity("1.1.2", 0, false, "1.1"),
+    QuestionEntity("1.1.1", com.example.moviesquiz.R.drawable._1_1_1, false, "1.1"),
+    QuestionEntity("1.1.2", com.example.moviesquiz.R.drawable._1_1_2, false, "1.1"),
     QuestionEntity("1.1.3", 0, false, "1.1"),
     QuestionEntity("1.1.4", 0, false, "1.1"),
     QuestionEntity("1.1.5", 0, false, "1.1"),

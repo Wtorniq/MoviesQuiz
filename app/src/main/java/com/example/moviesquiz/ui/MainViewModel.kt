@@ -63,15 +63,40 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
 
     private fun getAnswersFromRepo(): ArrayList<Answer> {
         val answers = ArrayList<Answer>()
-        viewModelScope.launch(Dispatchers.IO) {
-            answers.addAll(repo.getAnswers(currentQuestion.id))
-        }
+        answers.addAll(repo.getAnswers(currentQuestion.id))
         return answers
     }
 
     fun getCurrentQuestion() {
-        val answers = getAnswersFromRepo()
-        currentQuestionLiveData.postValue(QuestionState.Success(currentQuestion, answers))
+        currentQuestionLiveData.postValue(QuestionState.Loading)
+        viewModelScope.launch(Dispatchers.IO) {
+            when(currentLevel.id){
+                "1" -> {
+                    currentQuestionLiveData.postValue(
+                        QuestionState.SuccessEasyLevel(
+                            currentQuestion,
+                            getAnswersFromRepo()
+                        )
+                    )
+                }
+                "2" -> {
+                    currentQuestionLiveData.postValue(
+                        QuestionState.SuccessNormalLevel(
+                            currentQuestion,
+                            getAnswersFromRepo()[0]
+                        )
+                    )
+                }
+                "3" -> {
+                    currentQuestionLiveData.postValue(
+                        QuestionState.SuccessHardLevel(
+                            currentQuestion,
+                            getAnswersFromRepo()[0]
+                        )
+                    )
+                }
+            }
+        }
     }
 
     fun setChosenLevel(lvl: Level){
@@ -119,16 +144,13 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
 
     private fun checkNewEnabledLevels(counter: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val valuesToEnableNewLevel = arrayListOf<Int>()
-            for (i in 0 until levels.size) {
-                valuesToEnableNewLevel.add(COUNTER_FOR_ENABLE_LEV * i)
-            }
-            valuesToEnableNewLevel.forEach {
-                if (counter == it) {
-                    repo.setEnabledLevel(levels[valuesToEnableNewLevel.indexOf(it)].id)
+            try {
+                if (counter == COUNTER_FOR_ENABLE_LEV) {
+                    val indexOfNextLevel = levels.indexOf(currentLevel) + 1
+                    repo.setEnabledLevel(levels[indexOfNextLevel].id)
                     notificationDialogLiveData.postValue("Открылся новый кинотеатр!")
                 }
-            }
+            } catch (_: Throwable){}
         }
     }
 

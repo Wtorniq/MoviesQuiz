@@ -15,35 +15,35 @@ class QuizRepoStupidImpl : QuizRepo {
     )
 
     private val categories = arrayListOf(
-        Category("1.1", "зарубежные фильмы","", 0, true),
-        Category("1.2", "российские фильмы","", 0, false),
-        Category("1.3", "сериалы", "", 0, false),
-        Category("1.4", "мультфильмы","", 0, false),
-        Category("1.5", "актеры","", 0, false),
-        Category("1.6", "классика","", 0, false)
+        Category("1.1", R.string.categoryNameForeignMovies,R.string.categoryDescGuessMovieFromScreenshot, 0, true),
+        Category("1.2", R.string.categoryNameRussianMovies,R.string.categoryDescGuessMovieFromScreenshot, 0, false),
+        Category("1.3", R.string.categoryNameShows, R.string.categoryDescGuessShowFromScreenshot, 0, false),
+        Category("1.4", R.string.categoryNameCartoons,R.string.categoryDescGuessCartoonFromScreenshot, 0, false),
+        Category("1.5", R.string.categoryNameActors,R.string.categoryDescGuessActorFromScreenshot, 0, false),
+        Category("1.6", R.string.categoryNameClassic,R.string.categoryDescGuessMovieFromActors, 0, false)
     )
 
     private val questions = arrayListOf(
-        Question("1.1.1", R.drawable.__1_1_1, false),
-        Question("1.1.2", R.drawable.__1_1_1, false),
-        Question("1.1.3", R.drawable.__1_1_1, false),
-        Question("1.1.4", R.drawable.__1_1_1, false),
-        Question("1.1.5", R.drawable.__1_1_1, false),
-        Question("1.1.6", R.drawable.__1_1_1, false),
-        Question("1.1.7", R.drawable.__1_1_1, false),
-        Question("1.1.8", R.drawable.__1_1_1, false),
-        Question("1.1.9", R.drawable.__1_1_1, false),
-        Question("1.1.10", R.drawable.__1_1_1, false),
-        Question("1.1.11", R.drawable.__1_1_1, false),
-        Question("1.1.12", R.drawable.__1_1_1, false),
-        Question("1.1.13", R.drawable.__1_1_1, false),
-        Question("1.1.14", R.drawable.__1_1_1, false),
-        Question("1.1.15", R.drawable.__1_1_1, false),
-        Question("1.1.16", R.drawable.__1_1_1, false),
-        Question("1.1.17", R.drawable.__1_1_1, false),
-        Question("1.1.18", R.drawable.__1_1_1, false),
-        Question("1.1.19", R.drawable.__1_1_1, false),
-        Question("1.1.20", R.drawable.__1_1_1, false),
+        Question("1.1.1", R.drawable._1_1_1, false),
+        Question("1.1.2", R.drawable._1_1_1, false),
+        Question("1.1.3", R.drawable._1_1_1, false),
+        Question("1.1.4", R.drawable._1_1_1, false),
+        Question("1.1.5", R.drawable._1_1_1, false),
+        Question("1.1.6", R.drawable._1_1_1, false),
+        Question("1.1.7", R.drawable._1_1_1, false),
+        Question("1.1.8", R.drawable._1_1_1, false),
+        Question("1.1.9", R.drawable._1_1_1, false),
+        Question("1.1.10", R.drawable._1_1_1, false),
+        Question("1.1.11", R.drawable._1_1_1, false),
+        Question("1.1.12", R.drawable._1_1_1, false),
+        Question("1.1.13", R.drawable._1_1_1, false),
+        Question("1.1.14", R.drawable._1_1_1, false),
+        Question("1.1.15", R.drawable._1_1_1, false),
+        Question("1.1.16", R.drawable._1_1_1, false),
+        Question("1.1.17", R.drawable._1_1_1, false),
+        Question("1.1.18", R.drawable._1_1_1, false),
+        Question("1.1.19", R.drawable._1_1_1, false),
+        Question("1.1.20", R.drawable._1_1_1, false),
     )
 
     private val answers = arrayListOf(
