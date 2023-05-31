@@ -10,6 +10,7 @@ import com.example.moviesquiz.R
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentQuestionBinding
 import com.example.moviesquiz.domain.entities.Answer
+import com.example.moviesquiz.domain.entities.Question
 import com.example.moviesquiz.ui.QuestionState
 import com.google.android.material.button.MaterialButton
 
@@ -47,41 +48,7 @@ class QuestionFragment : Fragment() {
                 is QuestionState.SuccessEasyLevel -> {
                     fourAnswersContainer.visibility = View.VISIBLE
                     textFieldContainer.visibility = View.GONE
-                    if (!answerBtn1.isEnabled) {
-                        setButtonsDisabled()
-                    }
-                    answerBtn1.setBackgroundColor(
-                        resources.getColor(
-                            R.color.purple_500,
-                            requireContext().theme
-                        )
-                    )
-                    answerBtn2.setBackgroundColor(
-                        resources.getColor(
-                            R.color.purple_500,
-                            requireContext().theme
-                        )
-                    )
-                    answerBtn3.setBackgroundColor(
-                        resources.getColor(
-                            R.color.purple_500,
-                            requireContext().theme
-                        )
-                    )
-                    answerBtn4.setBackgroundColor(
-                        resources.getColor(
-                            R.color.purple_500,
-                            requireContext().theme
-                        )
-                    )
-                    tempQId.text = questionState.question.id
-                    screenshotContainer.setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            requireContext(),
-                            questionState.question.screenshot
-                        )
-                    )
-                    setAnswers(questionState.answers)
+                    setQuestionForEasyLevel(questionState.question, questionState.answers)
                 }
                 is QuestionState.SuccessNormalLevel -> {
                     fourAnswersContainer.visibility = View.GONE
@@ -93,6 +60,18 @@ class QuestionFragment : Fragment() {
                             questionState.question.screenshot
                         )
                     )
+                    inputTextField.text = null
+                    inputTextField.setBackgroundColor(resources.getColor(R.color.white, requireContext().theme))
+                    btnTextField.setOnClickListener {
+                        val text = inputTextField.text.toString()
+                        if (text == questionState.answer.text){
+                            viewModel.setAnswerAsRight()
+                            inputTextField.setBackgroundColor(resources.getColor(R.color.green, requireContext().theme))
+                        } else {
+                            inputTextField.setBackgroundColor(resources.getColor(R.color.red, requireContext().theme))
+                        }
+                        viewModel.setNextQuestion()
+                    }
                 }
                 is QuestionState.SuccessHardLevel -> {
                     tempQId.text = questionState.question.id
@@ -107,40 +86,67 @@ class QuestionFragment : Fragment() {
         }
     }
 
+    private fun setQuestionForEasyLevel(question: Question, answers: ArrayList<Answer>) = with(binding) {
+        if (!answerBtn1.isEnabled) {
+            switchButtons()
+        }
+        setButtonsDefaultColor(answerBtn1)
+        setButtonsDefaultColor(answerBtn2)
+        setButtonsDefaultColor(answerBtn3)
+        setButtonsDefaultColor(answerBtn4)
+        tempQId.text = question.id
+        screenshotContainer.setImageDrawable(
+            AppCompatResources.getDrawable(
+                requireContext(),
+                question.screenshot
+            )
+        )
+        setAnswers(answers)
+    }
+
+    private fun setButtonsDefaultColor(button: MaterialButton) {
+        button.setBackgroundColor(
+            resources.getColor(
+                R.color.purple_500,
+                requireContext().theme
+            )
+        )
+    }
+
     private fun setAnswers(answers: ArrayList<Answer>?) = with(binding) {
         answers?.let {
             answerBtn1.apply {
                 text = answers[0].text
                 setOnClickListener {
                     onAnswerClicked(answers[0], this)
-                    setButtonsDisabled()
+                    switchButtons()
                 }
             }
             answerBtn2.apply {
                 text = answers[1].text
                 setOnClickListener {
                     onAnswerClicked(answers[1], this)
-                    setButtonsDisabled()
+                    switchButtons()
                 }
             }
             answerBtn3.apply {
                 text = answers[2].text
                 setOnClickListener {
                     onAnswerClicked(answers[2], this)
-                    setButtonsDisabled()
+                    switchButtons()
                 }
             }
             answerBtn4.apply {
                 text = answers[3].text
                 setOnClickListener {
                     onAnswerClicked(answers[3], this)
-                    setButtonsDisabled()
+                    switchButtons()
                 }
             }
         }
     }
 
-    private fun setButtonsDisabled() = with(binding) {
+    private fun switchButtons() = with(binding) {
         if (answerBtn1.isEnabled){
             answerBtn1.isEnabled = false
             answerBtn2.isEnabled = false
