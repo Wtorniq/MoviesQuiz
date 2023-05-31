@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.example.moviesquiz.App
+import com.example.moviesquiz.R
 import com.example.moviesquiz.databinding.ActivityMainBinding
 import com.example.moviesquiz.ui.fragments.LevelsRoomFragment
 
 private const val ARG_IS_DB_CREATED = "ARG_IS_DB_CREATED"
-
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by lazy { (application as App).viewModel }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setTheme(R.style.Theme_MoviesQuiz)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.container)
 
@@ -32,11 +32,13 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
-        viewModel.getNotificationDialogLiveData().observe(this) { message ->
-            AlertDialog.Builder(this).apply {
-                setMessage(message)
-                create()
-                show()
+        viewModel.getNotificationDialogLiveData().observe(this) { event ->
+            event.getContentIfNotHandled()?.let { message ->
+                AlertDialog.Builder(this).apply {
+                    setMessage(message)
+                    create()
+                    show()
+                }
             }
         }
     }

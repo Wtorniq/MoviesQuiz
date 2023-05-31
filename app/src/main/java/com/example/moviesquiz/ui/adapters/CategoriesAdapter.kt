@@ -54,6 +54,7 @@ class CategoriesAdapter(private val categoriesInterface: CategoriesInterface) : 
         }
     }
 }
+
 interface CategoriesInterface{
     fun onCategoryClicked(category: Category)
 }

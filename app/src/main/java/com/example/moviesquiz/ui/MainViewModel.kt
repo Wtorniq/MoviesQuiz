@@ -29,12 +29,12 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
     private var categoriesLiveData = MutableLiveData<ArrayList<Category>>()
     private var questionsLiveData = MutableLiveData<ArrayList<Question>>()
     private var currentQuestionLiveData = MutableLiveData<QuestionState>()
-    private var notificationDialogLiveData = MutableLiveData<String>()
+    private var notificationDialogLiveData = MutableLiveData<SingleEvent<String>>()
     fun getLevelsLiveData(): LiveData<ArrayList<Level>> = levelsLiveData
     fun getCategoriesLiveData(): LiveData<ArrayList<Category>> = categoriesLiveData
     fun getQuestionsLiveData(): LiveData<ArrayList<Question>> = questionsLiveData
     fun getCurrentQuestionLiveData(): LiveData<QuestionState> = currentQuestionLiveData
-    fun getNotificationDialogLiveData(): LiveData<String> = notificationDialogLiveData
+    fun getNotificationDialogLiveData(): LiveData<SingleEvent<String>> = notificationDialogLiveData
 
     fun getLevels() = getLevelsFromRepo()
     fun getCategories() = getCategoriesFromRepo()
@@ -136,7 +136,7 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
             valuesToEnableNewCategory.forEach {
                 if (counter == it) {
                     repo.setEnabledCategory(categories[valuesToEnableNewCategory.indexOf(it)].id)
-                    notificationDialogLiveData.postValue("Открылся новый зал!")
+                    notificationDialogLiveData.postValue(SingleEvent("Открылся новый зал!"))
                 }
             }
         }
@@ -148,7 +148,7 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
                 if (counter == COUNTER_FOR_ENABLE_LEV) {
                     val indexOfNextLevel = levels.indexOf(currentLevel) + 1
                     repo.setEnabledLevel(levels[indexOfNextLevel].id)
-                    notificationDialogLiveData.postValue("Открылся новый кинотеатр!")
+                    notificationDialogLiveData.postValue(SingleEvent("Открылся новый кинотеатр!"))
                 }
             } catch (_: Throwable){}
         }
