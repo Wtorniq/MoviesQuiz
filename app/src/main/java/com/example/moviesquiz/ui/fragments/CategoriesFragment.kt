@@ -49,8 +49,13 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun setCategories(categories: ArrayList<Category>?) {
-        categories?.let{
-            adapter.setCategoriesList(categories)
+        categories?.let {
+            val namesList = arrayListOf<String>()
+            categories.forEach { category ->
+                val name = requireContext().resources.getString(category.name)
+                namesList.add(name)
+            }
+            adapter.setCategoriesList(categories, namesList)
         }
     }
 

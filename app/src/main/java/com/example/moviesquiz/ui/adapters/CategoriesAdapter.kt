@@ -12,12 +12,17 @@ import com.example.moviesquiz.domain.entities.Category
 class CategoriesAdapter(private val categoriesInterface: CategoriesInterface) : Adapter<CategoriesAdapter.CategoriesViewHolder>(){
 
     private val categoriesList = arrayListOf<Category>()
+    private val namesList = arrayListOf<String>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setCategoriesList(categories: ArrayList<Category>){
+    fun setCategoriesList(categories: ArrayList<Category>, names: ArrayList<String>){
         categoriesList.apply {
             clear()
             addAll(categories)
+        }
+        namesList.apply {
+            clear()
+            addAll(names)
         }
         notifyDataSetChanged()
     }
@@ -31,14 +36,14 @@ class CategoriesAdapter(private val categoriesInterface: CategoriesInterface) : 
     }
 
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
-        holder.bind(categoriesList[position])
+        holder.bind(categoriesList[position], namesList[position])
     }
 
     override fun getItemCount(): Int = categoriesList.size
 
     inner class CategoriesViewHolder(private val binding: FragmentCategoriesRvItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(category: Category) = with(binding){
-            categoryName.text = category.name
+        fun bind(category: Category, name: String) = with(binding){
+            categoryName.text = name
             if (category.isEnabled){
                 blocker.visibility = View.GONE
                 counter.text = category.answersCounter.toString()
