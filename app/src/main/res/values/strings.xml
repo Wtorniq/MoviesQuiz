@@ -25,5 +25,7 @@
     <string name="categoryNameCartoons">Мультфильмы</string>
     <string name="categoryNameActors">Актеры</string>
     <string name="categoryNameClassic">Классика</string>
+    <string name="title">MoviesQuiz!</string>
+    <string name="enter">ВОЙТИ</string>
 
 </resources>

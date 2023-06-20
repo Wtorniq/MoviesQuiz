@@ -7,8 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="cardViewColor">#FFC107</color>
     <color name="green">#42AC00</color>
     <color name="red">#FF1100</color>
     <color name="gray">#6B6B6B</color>
+    <color name="invisible">#00000000</color>
+
+    <color name="activityBackgroundColor">#82D3D8</color>
+    <color name="cardViewColor">#50434D</color>
+    <color name="btnEnterColor">#40353D</color>
+    <color name="yellow">#FFC107</color>
+    <color name="black_op_30">#4D000000</color>
+    <color name="white_op_30">#4DFFFFFF</color>
 </resources>

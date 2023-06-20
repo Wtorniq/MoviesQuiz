@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.*
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentLevelsRoomBinding
 import com.example.moviesquiz.domain.entities.Level
@@ -22,6 +21,7 @@ class LevelsRoomFragment : Fragment() {
     private val viewModel by lazy { app.viewModel }
     private val adapter: LevelsRoomAdapter by lazy {
         LevelsRoomAdapter(object : LevelsRoomInterface {
+
             override fun onLevelClicked(lvl: Level) {
                 viewModel.setChosenLevel(lvl)
                 parentFragmentManager.beginTransaction()
@@ -44,6 +44,7 @@ class LevelsRoomFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val lm = LinearLayoutManager(requireContext()).apply {
             orientation = LinearLayoutManager.HORIZONTAL
+
         }
         binding.recyclerView.layoutManager = lm
         PagerSnapHelper().attachToRecyclerView(binding.recyclerView)

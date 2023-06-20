@@ -9,9 +9,9 @@ import com.example.moviesquiz.domain.entities.Question
 class QuizRepoStupidImpl : QuizRepo {
 
     private val levels = arrayListOf(
-        Level("1", true, 0),
-        Level("2", false, 0),
-        Level("3", false, 0)
+        Level("1","Красный сентябрь","Здесь нужно выбрать правильный вариант ответа", R.drawable.craiyon_201302_movie_theater_building_in_flat_design_removebg_preview, R.color.green, true, 0),
+        Level("2", "Желтый ноябрь","Здесь нужно собрать правильный ответ из букв", R.drawable.craiyon_201326_movie_theater_building_in_flat_design_removebg_preview, R.color.red, false, 0),
+        Level("3", "Синий декабрь","Здесб нужно ввести правильный ответ", R.drawable.craiyon_201336_movie_theater_building_in_flat_design_removebg_preview, R.color.purple_200, false, 0)
     )
 
     private val categories = arrayListOf(
@@ -25,7 +25,7 @@ class QuizRepoStupidImpl : QuizRepo {
 
     private val questions = arrayListOf(
         Question("1.1.1", R.drawable._1_1_1, false),
-        Question("1.1.2", R.drawable._1_1_1, false),
+        Question("1.1.2", R.drawable._1_1_2, false),
         Question("1.1.3", R.drawable._1_1_1, false),
         Question("1.1.4", R.drawable._1_1_1, false),
         Question("1.1.5", R.drawable._1_1_1, false),

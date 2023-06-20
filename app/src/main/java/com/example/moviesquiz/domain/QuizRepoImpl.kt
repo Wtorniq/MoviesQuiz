@@ -9,12 +9,12 @@ import com.example.moviesquiz.domain.entities.Question
 class QuizRepoImpl : QuizRepo {
 
     override fun initDataBase() {
-        QuizDatabase.db.questionsDao().initAll(
+/*        QuizDatabase.db.questionsDao().initAll(
             getInitialLevels(),
             getInitialCategories(),
             getInitialQuestions(),
             getInitialAnswerEntities()
-        )
+        )*/
     }
 
     override fun getLevelsList(): ArrayList<Level> {
@@ -91,6 +91,10 @@ class QuizRepoImpl : QuizRepo {
 
     private fun convertEntityToLevel(levelEntity: LevelEntity) = Level(
         levelEntity.id,
+        levelEntity.name,
+        levelEntity.description,
+        levelEntity.image,
+        levelEntity.color,
         levelEntity.isEnabled,
         levelEntity.answersCounter
     )
