@@ -6,6 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Answer(
     val text: String,
-    val possibleLetters: String?,
     val isRight: Boolean,
 ): Parcelable

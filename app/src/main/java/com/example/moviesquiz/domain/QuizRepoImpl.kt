@@ -101,7 +101,6 @@ class QuizRepoImpl : QuizRepo {
 
     private fun convertEntityToAnswer(answerEntity: AnswerEntity) = Answer(
         answerEntity.text,
-        answerEntity.possibleLetters,
         answerEntity.isRight
     )
 }
