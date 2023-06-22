@@ -38,5 +38,6 @@ fun getInitialCategories() = listOf(
     CategoryEntity("3.3", com.example.moviesquiz.R.string.categoryNameShows,com.example.moviesquiz.R.string.categoryDescGuessShowFromScreenshot, 0, true, "3"),
     CategoryEntity("3.4", com.example.moviesquiz.R.string.categoryNameCartoons,com.example.moviesquiz.R.string.categoryDescGuessCartoonFromScreenshot, 0, false, "3"),
     CategoryEntity("3.5", com.example.moviesquiz.R.string.categoryNameActors,com.example.moviesquiz.R.string.categoryDescGuessActorFromScreenshot, 0, false, "3"),
-    CategoryEntity("3.6", com.example.moviesquiz.R.string.categoryNameClassic,com.example.moviesquiz.R.string.categoryDescGuessMovieFromScreenshot, 0, false, "3")
+    CategoryEntity("3.6", com.example.moviesquiz.R.string.categoryNameClassic,com.example.moviesquiz.R.string.categoryDescGuessMovieFromScreenshot, 0, false, "3"),
+    CategoryEntity("3.7", com.example.moviesquiz.R.string.categoryNameLocations, com.example.moviesquiz.R.string.categoryDescGuessMovieFromLocation, 0, false, "3")
 )
