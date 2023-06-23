@@ -12,6 +12,7 @@ import com.example.moviesquiz.domain.entities.Category
 import com.example.moviesquiz.ui.MainActivity
 import com.example.moviesquiz.ui.adapters.CategoriesAdapter
 import com.example.moviesquiz.ui.adapters.CategoriesInterface
+import com.example.moviesquiz.ui.states.CategoryState
 
 class CategoriesFragment : Fragment() {
 
@@ -39,6 +40,9 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         val lm = LinearLayoutManager(requireContext()).apply {
             orientation = LinearLayoutManager.VERTICAL
         }
@@ -48,14 +52,15 @@ class CategoriesFragment : Fragment() {
         viewModel.getCategories()
     }
 
-    private fun setCategories(categories: ArrayList<Category>?) {
-        categories?.let {
+    private fun setCategories(categoryState: CategoryState?) {
+        categoryState?.let {
+            binding.root.setBackgroundColor(resources.getColor(categoryState.color, resources.newTheme()))
             val namesList = arrayListOf<String>()
-            categories.forEach { category ->
+            categoryState.categories.forEach { category ->
                 val name = requireContext().resources.getString(category.name)
                 namesList.add(name)
             }
-            adapter.setCategoriesList(categories, namesList)
+            adapter.setCategoriesList(categoryState.categories, namesList)
         }
     }
 

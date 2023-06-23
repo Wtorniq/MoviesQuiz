@@ -2,8 +2,8 @@ package com.example.moviesquiz.ui.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.moviesquiz.databinding.FragmentCategoriesRvItemBinding
@@ -44,13 +44,17 @@ class CategoriesAdapter(private val categoriesInterface: CategoriesInterface) : 
     inner class CategoriesViewHolder(private val binding: FragmentCategoriesRvItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category, name: String) = with(binding){
             categoryName.text = name
-            if (category.isEnabled){
-                blocker.visibility = View.GONE
-                counter.text = category.answersCounter.toString()
+            counter.progress = category.answersCounter
+            categoryIcon.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    itemView.resources, category.icon, itemView.resources.newTheme()))
+//            if (category.isEnabled){
+//                blocker.visibility = View.GONE
+//                counter.text = category.answersCounter.toString()
                 itemView.setOnClickListener { categoriesInterface.onCategoryClicked(category) }
-            } else {
+/*            } else {
                 blocker.visibility = View.VISIBLE
-            }
+            }*/
         }
     }
 }

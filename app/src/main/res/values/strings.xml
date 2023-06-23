@@ -25,5 +25,7 @@
     <string name="categoryNameLocations">Локации</string>
     <string name="title">MoviesQuiz!</string>
     <string name="enter">ВОЙТИ</string>
+    <string name="settings">settings</string>
+    <string name="choose_category">Выберите категорию</string>
 
 </resources>
