@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviesquiz.R
@@ -32,9 +33,11 @@ class QuestionsRoomFragment : Fragment() {
 
             override fun setColor(question: Question, itemView: View) {
                 if (!question.isAnswered){
-                    itemView.setBackgroundColor(resources.getColor(R.color.green, requireContext().theme))
+                    itemView.background = ResourcesCompat.getDrawable(resources, R.drawable.seat_view, resources.newTheme())
+//                    itemView.setBackgroundColor(resources.getColor(R.color.green, requireContext().theme))
                 } else {
-                    itemView.setBackgroundColor(resources.getColor(R.color.gray, requireContext().theme))
+                    itemView.background = ResourcesCompat.getDrawable(resources, R.drawable.seat_view_answered, resources.newTheme())
+//                    itemView.setBackgroundColor(resources.getColor(R.color.gray, requireContext().theme))
                 }
             }
         })
@@ -51,6 +54,9 @@ class QuestionsRoomFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         val lm = GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = lm
         binding.recyclerView.adapter = adapter
