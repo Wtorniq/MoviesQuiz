@@ -9,10 +9,9 @@ import com.example.moviesquiz.database.entities.QuestionEntity
 
 @Database(
     entities = [LevelEntity::class, CategoryEntity::class, QuestionEntity::class, AnswerEntity::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
-//@TypeConverters(StringListConverter::class)
 abstract class QuizDatabase : RoomDatabase() {
     abstract fun questionsDao(): QuestionsDao
     companion object {
@@ -23,19 +22,7 @@ abstract class QuizDatabase : RoomDatabase() {
                 App.appInstance,
                 QuizDatabase::class.java,
                 DB_NAME
-            ).build()
+            ).fallbackToDestructiveMigration().build()
         }
     }
 }
-/*
-class StringListConverter {
-    @TypeConverter
-    fun fromStringList(list: ArrayList<String>): String {
-        return list.joinToString(",")
-    }
-
-    @TypeConverter
-    fun toStringList(data: String): ArrayList<String> {
-        return ArrayList(data.split(","))
-    }
-}*/

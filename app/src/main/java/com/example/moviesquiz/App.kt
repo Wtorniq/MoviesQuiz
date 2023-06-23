@@ -12,7 +12,7 @@ import com.example.moviesquiz.ui.MainViewModel
 class App: Application() {
     private val stupidRepo: QuizRepo by lazy { QuizRepoStupidImpl() }
     private val repo: QuizRepo by lazy { QuizRepoImpl() }
-    val viewModel: MainViewModel by lazy { MainViewModel(stupidRepo) }
+    val viewModel: MainViewModel by lazy { MainViewModel(repo) }
 
     override fun onCreate() {
         super.onCreate()

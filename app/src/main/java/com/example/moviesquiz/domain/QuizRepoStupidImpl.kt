@@ -14,13 +14,13 @@ class QuizRepoStupidImpl : QuizRepo {
         Level("3", "Синий декабрь","Здесб нужно ввести правильный ответ", R.drawable.cinema_3_img, R.color.purple_200, false, 0)
     )
 
-    private val categories = arrayListOf(
-        Category("1.1", R.string.categoryNameForeignMovies,R.string.categoryDescGuessMovieFromScreenshot, 0, true),
-        Category("1.2", R.string.categoryNameRussianMovies,R.string.categoryDescGuessMovieFromScreenshot, 0, false),
-        Category("1.3", R.string.categoryNameShows, R.string.categoryDescGuessShowFromScreenshot, 0, false),
-        Category("1.4", R.string.categoryNameCartoons,R.string.categoryDescGuessCartoonFromScreenshot, 0, false),
-        Category("1.5", R.string.categoryNameActors,R.string.categoryDescGuessActorFromScreenshot, 0, false),
-        Category("1.6", R.string.categoryNameClassic,R.string.categoryDescGuessMovieFromActors, 0, false)
+    private val categories = arrayListOf<Category>(
+//        Category("1.1", R.string.categoryNameForeignMovies,R.string.categoryDescGuessMovieFromScreenshot, 0, true),
+//        Category("1.2", R.string.categoryNameRussianMovies,R.string.categoryDescGuessMovieFromScreenshot, 0, false),
+//        Category("1.3", R.string.categoryNameShows, R.string.categoryDescGuessShowFromScreenshot, 0, false),
+//        Category("1.4", R.string.categoryNameCartoons,R.string.categoryDescGuessCartoonFromScreenshot, 0, false),
+//        Category("1.5", R.string.categoryNameActors,R.string.categoryDescGuessActorFromScreenshot, 0, false),
+//        Category("1.6", R.string.categoryNameClassic,R.string.categoryDescGuessMovieFromActors, 0, false)
     )
 
     private val questions = arrayListOf(
