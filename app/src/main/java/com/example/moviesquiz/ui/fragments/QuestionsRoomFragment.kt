@@ -13,6 +13,7 @@ import com.example.moviesquiz.domain.entities.Question
 import com.example.moviesquiz.ui.MainActivity
 import com.example.moviesquiz.ui.adapters.QuestionsRoomAdapter
 import com.example.moviesquiz.ui.adapters.QuestionsRoomInterface
+import com.example.moviesquiz.ui.states.QuestionsRoomState
 
 class QuestionsRoomFragment : Fragment() {
     private var _binding: FragmentQuestionsRoomBinding? = null
@@ -58,9 +59,10 @@ class QuestionsRoomFragment : Fragment() {
         viewModel.getQuestions()
     }
 
-    private fun setQuestions(questions: ArrayList<Question>?) {
-        questions?.let {
-            adapter.setQuestionsList(questions)
+    private fun setQuestions(state: QuestionsRoomState?) {
+        state?.let {
+            binding.root.setBackgroundColor(resources.getColor(state.color, resources.newTheme()))
+            adapter.setQuestionsList(state.questions)
         }
     }
 

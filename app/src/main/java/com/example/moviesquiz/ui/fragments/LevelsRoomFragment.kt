@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.*
 import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentLevelsRoomBinding
@@ -53,14 +54,13 @@ class LevelsRoomFragment : Fragment() {
         viewModel.getLevelsLiveData().observe(viewLifecycleOwner) { setLevels(it) }
         viewModel.getLevels()
 
-        binding.deleteBtn.visibility = View.GONE
-/*        binding.deleteBtn.setOnClickListener {
+        binding.deleteBtn.setOnClickListener {
             viewModel.deleteData()
             activity?.getPreferences(AppCompatActivity.MODE_PRIVATE)
                 ?.edit()
                 ?.putBoolean("ARG_IS_DB_CREATED", false)
                 ?.apply()
-        }*/
+        }
     }
 
     private fun setLevels(levels: ArrayList<Level>?) {

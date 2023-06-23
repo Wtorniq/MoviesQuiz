@@ -11,7 +11,7 @@ import com.example.moviesquiz.app
 import com.example.moviesquiz.databinding.FragmentQuestionBinding
 import com.example.moviesquiz.domain.entities.Answer
 import com.example.moviesquiz.domain.entities.Question
-import com.example.moviesquiz.ui.QuestionState
+import com.example.moviesquiz.ui.states.QuestionState
 import com.google.android.material.button.MaterialButton
 
 class QuestionFragment : Fragment() {

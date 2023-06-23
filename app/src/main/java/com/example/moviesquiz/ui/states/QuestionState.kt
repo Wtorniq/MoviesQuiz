@@ -1,4 +1,4 @@
-package com.example.moviesquiz.ui
+package com.example.moviesquiz.ui.states
 
 import com.example.moviesquiz.domain.entities.Answer
 import com.example.moviesquiz.domain.entities.Question

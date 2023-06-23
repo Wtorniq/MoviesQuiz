@@ -9,10 +9,14 @@ import com.example.moviesquiz.domain.entities.Answer
 import com.example.moviesquiz.domain.entities.Category
 import com.example.moviesquiz.domain.entities.Level
 import com.example.moviesquiz.domain.entities.Question
+import com.example.moviesquiz.ui.states.CategoryState
+import com.example.moviesquiz.ui.states.QuestionState
+import com.example.moviesquiz.ui.states.QuestionsRoomState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-const val COUNTER_FOR_ENABLE_CAT = 2
+//const val COUNTER_FOR_ENABLE_CAT = 2
 const val COUNTER_FOR_ENABLE_LEV = 5
 class MainViewModel(private val repo: QuizRepo) : ViewModel() {
 
@@ -26,13 +30,13 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
     private var questions = arrayListOf<Question>()
 
     private var levelsLiveData = MutableLiveData<ArrayList<Level>>()
-    private var categoriesLiveData = MutableLiveData<ArrayList<Category>>()
-    private var questionsLiveData = MutableLiveData<ArrayList<Question>>()
+    private var categoriesLiveData = MutableLiveData<CategoryState>()
+    private var questionsLiveData = MutableLiveData<QuestionsRoomState>()
     private var currentQuestionLiveData = MutableLiveData<QuestionState>()
     private var notificationDialogLiveData = MutableLiveData<SingleEvent<String>>()
     fun getLevelsLiveData(): LiveData<ArrayList<Level>> = levelsLiveData
-    fun getCategoriesLiveData(): LiveData<ArrayList<Category>> = categoriesLiveData
-    fun getQuestionsLiveData(): LiveData<ArrayList<Question>> = questionsLiveData
+    fun getCategoriesLiveData(): LiveData<CategoryState> = categoriesLiveData
+    fun getQuestionsLiveData(): LiveData<QuestionsRoomState> = questionsLiveData
     fun getCurrentQuestionLiveData(): LiveData<QuestionState> = currentQuestionLiveData
     fun getNotificationDialogLiveData(): LiveData<SingleEvent<String>> = notificationDialogLiveData
 
@@ -41,23 +45,23 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
     fun getQuestions() = getQuestionsFromRepo()
 
     private fun getLevelsFromRepo() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.async (Dispatchers.IO) {
             levels = repo.getLevelsList()
             levelsLiveData.postValue(levels)
-        }
+        }.onAwait
     }
 
     private fun getCategoriesFromRepo() {
         viewModelScope.launch(Dispatchers.IO) {
             categories = repo.getCategoriesList(currentLevel.id)
-            categoriesLiveData.postValue(categories)
+            categoriesLiveData.postValue(CategoryState(categories, currentLevel.color))
         }
     }
 
     private fun getQuestionsFromRepo() {
         viewModelScope.launch(Dispatchers.IO) {
             questions = repo.getQuestionsList(currentCategory.id)
-            questionsLiveData.postValue(questions)
+            questionsLiveData.postValue(QuestionsRoomState(questions, currentLevel.color))
         }
     }
 
@@ -113,21 +117,21 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
 
     fun setAnswerAsRight() {
         viewModelScope.launch(Dispatchers.IO) {
-            val updateLevelCounter = currentLevel.answersCounter + 1
-            val updateCategoryCounter = currentCategory.answersCounter + 1
-            checkNewEnabledCategories(updateLevelCounter)
-            checkNewEnabledLevels(updateLevelCounter)
+            currentLevel.answersCounter += 1
+            currentCategory.answersCounter += 1
+//            checkNewEnabledCategories(currentLevel.answersCounter)
+            checkNewEnabledLevels(currentLevel.answersCounter)
             repo.setAnsweredQuestion(
                 currentLevel.id,
-                updateLevelCounter,
+                currentLevel.answersCounter,
                 currentCategory.id,
-                updateCategoryCounter,
+                currentCategory.answersCounter,
                 currentQuestion.id
             )
         }
     }
 
-    private fun checkNewEnabledCategories(counter: Int) {
+/*    private fun checkNewEnabledCategories(counter: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val valuesToEnableNewCategory = arrayListOf<Int>()
             for (i in 0 until categories.size) {
@@ -140,7 +144,7 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
                 }
             }
         }
-    }
+    }*/
 
     private fun checkNewEnabledLevels(counter: Int) {
         viewModelScope.launch(Dispatchers.IO) {
