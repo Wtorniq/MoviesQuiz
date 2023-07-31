@@ -53,7 +53,6 @@ class QuestionFragment : Fragment() {
                 is QuestionState.SuccessNormalLevel -> {
                     fourAnswersContainer.visibility = View.GONE
                     textFieldContainer.visibility = View.VISIBLE
-                    tempQId.text = questionState.question.id
                     screenshotContainer.setImageDrawable(
                         AppCompatResources.getDrawable(
                             requireContext(),
@@ -74,7 +73,6 @@ class QuestionFragment : Fragment() {
                     }
                 }
                 is QuestionState.SuccessHardLevel -> {
-                    tempQId.text = questionState.question.id
                     screenshotContainer.setImageDrawable(
                         AppCompatResources.getDrawable(
                             requireContext(),
@@ -94,7 +92,6 @@ class QuestionFragment : Fragment() {
         setButtonsDefaultColor(answerBtn2)
         setButtonsDefaultColor(answerBtn3)
         setButtonsDefaultColor(answerBtn4)
-        tempQId.text = question.id
         screenshotContainer.setImageDrawable(
             AppCompatResources.getDrawable(
                 requireContext(),

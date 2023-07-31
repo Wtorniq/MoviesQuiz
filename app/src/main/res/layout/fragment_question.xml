@@ -6,70 +6,93 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.QuestionFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbar_container"
+        android:backgroundTint="@color/invisible"
+        android:outlineSpotShadowColor="@color/invisible"
+        android:outlineAmbientShadowColor="@color/invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:menu="@menu/main_menu"
+            app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_scrollFlags="scroll"
+            app:navigationIcon="@drawable/ic_action_exit">
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ImageView
         android:id="@+id/screenshot_container"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:scaleType="centerInside"
+        app:layout_constraintVertical_weight="2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_container"
+        app:layout_constraintBottom_toTopOf="@+id/answers_container"
         android:contentDescription="@string/categoryDescGuessMovieFromScreenshot" />
 
-    <LinearLayout
-        android:id="@+id/four_answers_container"
+    <FrameLayout
+        android:id="@+id/answers_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/screenshot_container">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answer_btn_1"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/screenshot_container">
+        <LinearLayout
+            android:id="@+id/four_answers_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answer_btn_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answer_btn_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answer_btn_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answer_btn_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answer_btn_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answer_btn_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:id="@+id/text_field_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/screenshot_container">
-        <EditText
-            android:id="@+id/input_text_field"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answer_btn_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/text_field_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/app_name"
-            android:autofillHints="blabla"
-            android:inputType="" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_text_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/screenshot_container">
+            <EditText
+                android:id="@+id/input_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/app_name"
+                android:autofillHints="blabla"
+                android:inputType="" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </FrameLayout>
 
-    <TextView
-        android:id="@+id/temp_q_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="drgdf"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

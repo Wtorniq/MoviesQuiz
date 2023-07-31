@@ -50,7 +50,22 @@ class QuizRepoImpl : QuizRepo {
         receivedList.forEach {
             returnedList.add(convertEntityToAnswer(it))
         }
+        if (returnedList.size > 1){
+            val randomList = randomizeList(returnedList)
+            returnedList.clear()
+            returnedList.addAll(randomList)
+        }
         return returnedList
+    }
+
+    private fun randomizeList(inputList: ArrayList<Answer>): ArrayList<Answer> {
+        val randomList = arrayListOf<Answer>()
+        while (inputList.size > 0) {
+            val el = inputList.random()
+            randomList.add(el)
+            inputList.remove(el)
+        }
+        return randomList
     }
 
     override fun setAnsweredQuestion(

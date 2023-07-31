@@ -117,17 +117,19 @@ class MainViewModel(private val repo: QuizRepo) : ViewModel() {
 
     fun setAnswerAsRight() {
         viewModelScope.launch(Dispatchers.IO) {
-            currentLevel.answersCounter += 1
-            currentCategory.answersCounter += 1
+            if (!currentQuestion.isAnswered){
+                currentLevel.answersCounter += 1
+                currentCategory.answersCounter += 1
 //            checkNewEnabledCategories(currentLevel.answersCounter)
-            checkNewEnabledLevels(currentLevel.answersCounter)
-            repo.setAnsweredQuestion(
-                currentLevel.id,
-                currentLevel.answersCounter,
-                currentCategory.id,
-                currentCategory.answersCounter,
-                currentQuestion.id
-            )
+                checkNewEnabledLevels(currentLevel.answersCounter)
+                repo.setAnsweredQuestion(
+                    currentLevel.id,
+                    currentLevel.answersCounter,
+                    currentCategory.id,
+                    currentCategory.answersCounter,
+                    currentQuestion.id
+                )
+            }
         }
     }
 
